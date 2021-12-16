@@ -1,7 +1,5 @@
 ﻿Feature: FavoriteStar
-	Simple calculator for adding two numbers
 
-@mytag
 Scenario: Mark an item as a favorite
 	Given User logs into the system
 	When The user looks for a specific item

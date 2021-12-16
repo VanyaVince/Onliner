@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "ee562ed8-07df-4a10-a1e6-2ff8a15c63ca": {
+      "ProjectGuid": "ee562ed8-07df-4a10-a1e6-2ff8a15c63ca",
+      "DisplayName": "SpeckflowOnliner",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

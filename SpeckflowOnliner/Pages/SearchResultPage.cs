@@ -13,7 +13,7 @@ namespace SpeckflowOnliner.Pages
         {
             WebDriver = driver;
         }
-        private ReadOnlyCollection<IWebElement> GridItems => WebDriver.FindElements(By.XPath("//div[@class='schema-product']"));
+        private ReadOnlyCollection<IWebElement> GridItems => WebDriver.FindElements(By.XPath("//div[@class='schema-product__group']//div[contains(@class,'part_1')]//a[contains(@data-bind,'product.html')]"));
         public void ClickOnFirstItem()
         {
             GridItems[0].Click();

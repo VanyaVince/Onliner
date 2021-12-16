@@ -5,6 +5,7 @@ using System.Text;
 using FluentAssertions.Extensions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace SpeckflowOnliner.Drivers
 {
@@ -19,16 +20,22 @@ namespace SpeckflowOnliner.Drivers
 
         public IWebDriver CurrentDriver => _currentWebDriver;
 
+
         private IWebDriver GetDriver()
         {
             IWebDriver driver = new ChromeDriver();
 
             driver.Manage().Window.Maximize();
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
 
             return driver;
         }
 
-        
+        public static WebDriverWait CreateWebDriverWait(IWebDriver driver)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.IgnoreExceptionTypes(typeof(StaleElementReferenceException));
+            return wait;
+        }
     }
 }
