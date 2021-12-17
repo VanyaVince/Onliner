@@ -1,4 +1,5 @@
-﻿using SpeckflowOnliner.Drivers;
+﻿using NUnit.Framework;
+using SpeckflowOnliner.Drivers;
 using SpeckflowOnliner.Pages;
 using System;
 using System.Collections.Generic;
@@ -14,13 +15,15 @@ namespace SpeckflowOnliner.Steps
     class DeleteProductFromCartStepDef
     {
         private readonly String _product = "Телевизоры";
+        private string _productName;
 
         private readonly HomePage _homePage;
         private readonly LoginPage _loginPage;
         private readonly PreviewResultPage _previewResultPage;
         private readonly SearchResultPage _searchResultPage;
         private readonly ProductPage _productPage;
-        private readonly PreviewCartPage _productCartPage;
+        private readonly PreviewCartPage _previewCartPage;
+        private readonly CartPage _cartPage;
 
         public DeleteProductFromCartStepDef(Driver driver)
         {
@@ -29,7 +32,8 @@ namespace SpeckflowOnliner.Steps
             _previewResultPage = new PreviewResultPage(driver.CurrentDriver);
             _searchResultPage = new SearchResultPage(driver.CurrentDriver);
             _productPage = new ProductPage(driver.CurrentDriver);
-            _productCartPage = new PreviewCartPage(driver.CurrentDriver);  
+            _previewCartPage = new PreviewCartPage(driver.CurrentDriver); 
+            _cartPage = new CartPage(driver.CurrentDriver);
         }
 
         [Given(@"User has the product to buy")]
@@ -43,22 +47,22 @@ namespace SpeckflowOnliner.Steps
             _homePage.SearchProduct(_product);
             _previewResultPage.SelectProduct(_product);
             _searchResultPage.ClickOnFirstItem();
+            _productName = _productPage.GetProductTitle();
             _productPage.AddProductCart();
-            _productCartPage.ProceedToCart();
-
+            _previewCartPage.ProceedToCart();
         }
 
         [When(@"The product has been removed from the cart")]
         public void WhenTheProductHasBeenRemovedFromTheCart()
         {
-            Thread.Sleep(6000);
-            throw new PendingStepException();
+            _cartPage.DeleteProduct(_productName);
         }
 
         [Then(@"The cart no longer includes the product")]
         public void ThenTheCartNoLongerIncludesTheProduct()
         {
-            throw new PendingStepException();
+            //rewrite the methods
+            Assert.IsTrue(_cartPage.IsProductContainerDisplayed(_productName));
         }
 
     }
