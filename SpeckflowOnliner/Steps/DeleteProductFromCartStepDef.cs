@@ -1,67 +1,65 @@
-﻿using System;
+﻿using SpeckflowOnliner.Drivers;
+using SpeckflowOnliner.Pages;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
-using NUnit.Framework;
-using SpeckflowOnliner.Drivers;
-using SpeckflowOnliner.Pages;
+using System.Threading.Tasks;
 using TechTalk.SpecFlow;
 
 namespace SpeckflowOnliner.Steps
 {
     [Binding]
-    class MarkItemAsFavoriteStepDef
+    class DeleteProductFromCartStepDef
     {
         private readonly String _product = "Телевизоры";
-        private String _expectedProductTitle;
 
         private readonly HomePage _homePage;
         private readonly LoginPage _loginPage;
         private readonly PreviewResultPage _previewResultPage;
         private readonly SearchResultPage _searchResultPage;
         private readonly ProductPage _productPage;
-        private readonly BookmarkPage _bookmarkPage;
+        private readonly PreviewCartPage _productCartPage;
 
-        public MarkItemAsFavoriteStepDef(Driver driver)
+        public DeleteProductFromCartStepDef(Driver driver)
         {
             _homePage = new HomePage(driver.CurrentDriver);
             _loginPage = new LoginPage(driver.CurrentDriver);
             _previewResultPage = new PreviewResultPage(driver.CurrentDriver);
             _searchResultPage = new SearchResultPage(driver.CurrentDriver);
             _productPage = new ProductPage(driver.CurrentDriver);
-            _bookmarkPage = new BookmarkPage(driver.CurrentDriver);
+            _productCartPage = new PreviewCartPage(driver.CurrentDriver);  
         }
 
-        [Given(@"User logs into the system")]
-        public void GivenUserLogsIntoTheSystem()
+        [Given(@"User has the product to buy")]
+        public void GivenUserHasTheProductToBuy()
         {
             _homePage.OpenUrl();
             _homePage.ClickOnLoginBtn();
             _loginPage.EnterNickname();
             _loginPage.EnterPassword();
             _loginPage.ClickOnSubmitBtn();
-        }
-
-        [When(@"The user looks for a specific item")]
-        public void WhenTheUserLooksForASpecificItem()
-        {
             _homePage.SearchProduct(_product);
             _previewResultPage.SelectProduct(_product);
             _searchResultPage.ClickOnFirstItem();
+            _productPage.AddProductCart();
+            _productCartPage.ProceedToCart();
+
         }
 
-        [When(@"Marks it as a favorite one")]
-        public void WhenMarksItAsAFavoriteOne()
+        [When(@"The product has been removed from the cart")]
+        public void WhenTheProductHasBeenRemovedFromTheCart()
         {
-            _expectedProductTitle = _productPage.GetProductTitle();
-            _productPage.AddProductToFavoriteList();
+            Thread.Sleep(6000);
+            throw new PendingStepException();
         }
 
-        [Then(@"The item is added to the favorite list")]
-        public void ThenTheItemIsAddedToTheFavoriteList()
+        [Then(@"The cart no longer includes the product")]
+        public void ThenTheCartNoLongerIncludesTheProduct()
         {
-            _productPage.ProccedToPersonalBookmarks();
-            Assert.AreEqual(_expectedProductTitle, _bookmarkPage.GetSpecificProductName(_expectedProductTitle));
+            throw new PendingStepException();
         }
+
     }
 }

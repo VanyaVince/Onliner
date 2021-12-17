@@ -115,4 +115,3 @@ D:\Vanya\Specflow\SpeckflowOnliner\obj\Debug\netcoreapp6.0\SpeckflowOnliner.dll
 D:\Vanya\Specflow\SpeckflowOnliner\obj\Debug\netcoreapp6.0\ref\SpeckflowOnliner.dll
 D:\Vanya\Specflow\SpeckflowOnliner\obj\Debug\netcoreapp6.0\SpeckflowOnliner.pdb
 D:\Vanya\Specflow\SpeckflowOnliner\obj\Debug\netcoreapp6.0\SpeckflowOnliner.genruntimeconfig.cache
-D:\Vanya\Specflow\SpeckflowOnliner\obj\Debug\netcoreapp6.0\SpeckflowOnliner.csproj.AssemblyReference.cache

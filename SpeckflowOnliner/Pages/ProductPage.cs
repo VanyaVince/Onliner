@@ -17,6 +17,7 @@ namespace SpeckflowOnliner.Pages
         private IWebElement ProductBookmark => WebDriver.FindElement(By.XPath("//li[@id='product-bookmark-control']//span[@class='i-checkbox__faux']"));
         private IWebElement PersonalBookmarks => WebDriver.FindElement(By.XPath("//a[contains(@class,'favorites')]"));
         private IWebElement ProductTitle => WebDriver.FindElement(By.XPath("//div[@class='catalog-masthead']//h1"));
+        private IWebElement AddProductBtnToCart => WebDriver.FindElement(By.XPath("//div[@class='product-aside__box']/a[not(contains(@href,'?'))]"));
 
         public void AddProductToFavoriteList()
         {
@@ -31,6 +32,11 @@ namespace SpeckflowOnliner.Pages
         public String GetProductTitle()
         {
             return ProductTitle.Text;
+        }
+
+        public void AddProductCart()
+        {
+            AddProductBtnToCart.Click();
         }
     }
 }
